@@ -1,15 +1,60 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import java.io.*;
+import java.util.*;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+
+    public static void main(String[] args) {
+        try {
+            Grafo g = new Grafo();
+
+            BufferedReader br = new BufferedReader(new FileReader("src/entrada.txt"));
+            String linha;
+
+            while ((linha = br.readLine()) != null) {
+                String[] dados = linha.split(" ");
+                String v1 = dados[0];
+                String v2 = dados[1];
+                double dist = Double.parseDouble(dados[2]);
+                g.inserirAresta(v1, v2, dist);
+            }
+            br.close();
+
+            System.out.println("Grafo carregado!");
+            System.out.println("Vertices: " + g.numeroVertices());
+            System.out.println("Arestas: " + g.numeroArestas());
+            System.out.println();
+
+            System.out.println("ROTA CURTA:");
+            calcular(g, "cohama", "cohafuma");
+            System.out.println();
+
+            System.out.println("ROTA MEDIA:");
+            calcular(g, "cohama", "centro");
+            System.out.println();
+
+            System.out.println("ROTA LONGA:");
+            calcular(g, "ipase", "aeroporto");
+
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
         }
+    }
+
+    static void calcular(Grafo grafo, String origem, String destino) {
+        Map<String, String> pai = new HashMap<>();
+        Map<String, Double> distancias = Dijkstra.executar(grafo, origem, pai);
+
+        double distancia = distancias.get(destino);
+        List<String> caminho = Dijkstra.obterCaminho(origem, destino, pai);
+
+        System.out.println("De: " + origem);
+        System.out.println("Para: " + destino);
+        System.out.println("Distancia: " + distancia + " km");
+        System.out.print("Caminho: ");
+        for (int i = 0; i < caminho.size(); i++) {
+            System.out.print(caminho.get(i));
+            if (i < caminho.size() - 1) System.out.print(" -> ");
+        }
+        System.out.println();
     }
 }
