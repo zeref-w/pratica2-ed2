@@ -24,15 +24,15 @@ public class Main {
             System.out.println("Arestas: " + g.numeroArestas());
             System.out.println();
 
-            System.out.println("ROTA CURTA:");
+            System.out.println("Rota curta:");
             calcular(g, "cohama", "cohafuma");
             System.out.println();
 
-            System.out.println("ROTA MEDIA:");
+            System.out.println("Rota media:");
             calcular(g, "cohama", "centro");
             System.out.println();
 
-            System.out.println("ROTA LONGA:");
+            System.out.println("Rota longa:");
             calcular(g, "ipase", "aeroporto");
 
         } catch (Exception e) {
