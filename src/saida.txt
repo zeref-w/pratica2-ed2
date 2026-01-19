@@ -1,0 +1,27 @@
+Grafo carregado!
+Vertices: 36
+Arestas: 66
+
+Rota curta:
+De: cohama
+Para: cohafuma
+Distancia: 3.2 km
+Caminho: cohama -> cohafuma
+
+Rota media:
+De: cohama
+Para: centro
+Distancia: 13.7 km
+Caminho: cohama -> cohafuma -> calhau -> renascenca -> centro
+
+Rota longa:
+De: ipase
+Para: aeroporto
+Distancia: 23.0 km
+Caminho: ipase -> centro -> monte-castelo -> joao-paulo -> coroado -> tirirical -> aeroporto
+
+Rota teste:
+De: sao-cristovao
+Para: divineia
+Distancia: 14.2 km
+Caminho: sao-cristovao -> tirirical -> coroado -> turu -> divineia

@@ -3,9 +3,12 @@ import java.util.*;
 
 public class Main {
 
+    private static PrintWriter saida;
+
     public static void main(String[] args) {
         try {
             Grafo g = new Grafo();
+            saida = new PrintWriter(new FileWriter("src/saida.txt"));
 
             BufferedReader br = new BufferedReader(new FileReader("src/entrada.txt"));
             String linha;
@@ -19,25 +22,37 @@ public class Main {
             }
             br.close();
 
-            System.out.println("Grafo carregado!");
-            System.out.println("Vertices: " + g.numeroVertices());
-            System.out.println("Arestas: " + g.numeroArestas());
-            System.out.println();
+            imprimir("Grafo carregado!");
+            imprimir("Vertices: " + g.numeroVertices());
+            imprimir("Arestas: " + g.numeroArestas());
+            imprimir("");
 
-            System.out.println("Rota curta:");
+            imprimir("Rota curta:");
             calcular(g, "cohama", "cohafuma");
-            System.out.println();
+            imprimir("");
 
-            System.out.println("Rota media:");
+            imprimir("Rota media:");
             calcular(g, "cohama", "centro");
-            System.out.println();
+            imprimir("");
 
-            System.out.println("Rota longa:");
+            imprimir("Rota longa:");
             calcular(g, "ipase", "aeroporto");
+            imprimir("");
+
+            imprimir("Rota teste:");
+            calcular(g, "sao-cristovao", "divineia");
+
+            saida.close();
 
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
+            if (saida != null) saida.close();
         }
+    }
+
+    static void imprimir(String texto) {
+        System.out.println(texto);
+        saida.println(texto);
     }
 
     static void calcular(Grafo grafo, String origem, String destino) {
@@ -47,14 +62,15 @@ public class Main {
         double distancia = distancias.get(destino);
         List<String> caminho = Dijkstra.obterCaminho(origem, destino, pai);
 
-        System.out.println("De: " + origem);
-        System.out.println("Para: " + destino);
-        System.out.println("Distancia: " + distancia + " km");
-        System.out.print("Caminho: ");
+        imprimir("De: " + origem);
+        imprimir("Para: " + destino);
+        imprimir("Distancia: " + distancia + " km");
+
+        StringBuilder caminhoStr = new StringBuilder("Caminho: ");
         for (int i = 0; i < caminho.size(); i++) {
-            System.out.print(caminho.get(i));
-            if (i < caminho.size() - 1) System.out.print(" -> ");
+            caminhoStr.append(caminho.get(i));
+            if (i < caminho.size() - 1) caminhoStr.append(" -> ");
         }
-        System.out.println();
+        imprimir(caminhoStr.toString());
     }
 }
